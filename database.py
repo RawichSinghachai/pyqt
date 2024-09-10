@@ -62,9 +62,19 @@ class Database:
         if not query.exec():
             print("Failed to execute query:", query.lastError().text())
             return False
-        else:
-            return True
         
+        if query.next():
+            count = query.value(0)
+            if count > 0:
+                print("Login successful")
+                return True
+            else:
+                print("Login failed: Incorrect username/email or password")
+                return False
+        else:
+            print("Query did not return any results")
+            return False
+    
     def getAllUser(self):
         sql = 'SELECT UserId, FirstName, LastName, Department, Gender, Email, BirthDate FROM User'
         query = QSqlQuery(self.db)
@@ -116,7 +126,6 @@ class Database:
             return True
 
     def editUserDetail(self,userDetail):
-        print(userDetail)
         sql = '''UPDATE User SET FirstName = ? ,LastName = ?, Department = ?,
                 Gender = ?, Email = ?, BirthDate = ?
                 WHERE UserId = ? ;'''
@@ -132,6 +141,18 @@ class Database:
         query.addBindValue(userDetail['birthDate'])
         query.addBindValue(userDetail['UserId'])
 
+        if not query.exec():
+            print("Failed to execute query:", query.lastError().text())
+            return False
+        else:
+            return True
+        
+    def deleteUser(self,UserId):
+        sql = 'DELETE FROM User WHERE UserID = ?;'
+        
+        query = QSqlQuery(self.db)
+        query.prepare(sql)
+        query.addBindValue(UserId)
         if not query.exec():
             print("Failed to execute query:", query.lastError().text())
             return False

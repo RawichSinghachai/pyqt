@@ -1,0 +1,17 @@
+Edit Feature
+- cusor
+- sql (pending)
+- notification state mesage (pending)
+- excel
+- opencv
+- count down timer
+- merge file (success)
+- validation edituser
+- update data after edituser (success)
+- binding data to editPage  (success)
+- edit parameter name (success)
+
+edit after
+- add timestamp when create account
+- edit funtion showMessageDialog to components
+- remove function getter

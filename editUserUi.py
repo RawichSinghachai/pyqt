@@ -231,16 +231,17 @@ class EditUserUi(QWidget):
                 height: 20px;
             }
             QCalendarWidget QWidget {
-                background-color: #F0F0F0;
-            }
-            QCalendarWidget QToolButton {
-                background-color: #F0F0F0;
+                background-color: #F0F0F0; /* Background color header without text calendar */
                 color: #000000;
             }
-
+            QCalendarWidget QToolButton {
+                background-color: #3CEB06; /* Background color header text calendar */
+                color: #000000;
+            }
+            
             QCalendarWidget QAbstractItemView {
                 font: 14px Arial;
-                background-color: #E1E0B1;
+                background-color: #E1E0B1; /* Background color calendar popup */
                 border: 1px solid #000000;
             }
             QCalendarWidget QTableView::item:selected {

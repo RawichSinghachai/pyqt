@@ -8,7 +8,6 @@ from PyQt6.QtWidgets import QApplication, QWidget, QLabel,QPushButton, QVBoxLayo
 from editUserUi import EditUserUi
 from database import Database
 from messageBox import showMessageBox
-from tableUi import TableUi
 from controlPage import ControlPage
 
 class EditPage(QWidget):
@@ -128,6 +127,12 @@ class EditPage(QWidget):
                 # Clear Data
                 self.clearDataInForm()
 
+                # Rerender ControlPage
+                self.stackedWidget.removeWidget(self.stackedWidget.widget(2))
+                new_page = ControlPage(self.stackedWidget)
+                self.stackedWidget.insertWidget(2,new_page)
+                self.stackedWidget.setCurrentWidget(new_page)
+
             else:
                 showMessageBox(title='Insert', topic='Insert Fail',mode='error')  # Message Box      
 
@@ -136,6 +141,7 @@ class EditPage(QWidget):
         # Clear Data
         self.clearDataInForm()
 
+        # Rerender ControlPage
         self.stackedWidget.removeWidget(self.stackedWidget.widget(2))
         new_page = ControlPage(self.stackedWidget)
         self.stackedWidget.insertWidget(2,new_page)

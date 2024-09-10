@@ -19,3 +19,13 @@ def showMessageBox(title,topic,mode='info'):
     msgBox.setIcon(icon)
     msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
     msgBox.exec()
+
+def showMessageDeleteDialog():
+    msgBox = QMessageBox()
+    msgBox.setWindowTitle('Delete Accout')
+    msgBox.setText('Are you sure you want to delete this item?')
+    msgBox.setStandardButtons(QMessageBox.StandardButton.No | QMessageBox.StandardButton.Yes)
+    msgBox.setDefaultButton(QMessageBox.StandardButton.Yes)
+    response = msgBox.exec()
+    return response  
+    

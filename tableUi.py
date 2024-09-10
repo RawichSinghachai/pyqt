@@ -4,12 +4,14 @@ from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel,QPushButton, QVBoxLayout \
     ,QHBoxLayout,QGridLayout,QLineEdit,QMessageBox,QGroupBox,QSpacerItem,QTableWidget\
     ,QTableWidgetItem,QHeaderView
+from PyQt6.QtGui import QMouseEvent
 
 from database import Database
 
 
+
 class TableUi(QWidget):
-    def __init__(self,listUsers=[]):
+    def __init__(self,listUsers):
         super().__init__()
 
         # Root Layout
@@ -19,17 +21,12 @@ class TableUi(QWidget):
 
         # Database ------------------------------------------------------------------------------------
         self.db = Database()
-        # print(self.db.getAllUser())
-        self.listUsers = self.db.getAllUser()
+
+        
 
         # Table 
-        # self.listUsers = self.showdata()
+        self.listUsers = listUsers
 
-        # demo_data = [
-        # ['John', 'Doe', 'Male', 'HR', 'John@gmail', '1990-01-01'],  # False means not deleted
-        # ['Jane', 'Smith', 'Female', 'IT', 'Jane@gmail', '1992-02-02'],
-        # ['Alice', 'Johnson', 'Female', 'EN', 'Alice@gmail', '1993-03-03']
-        #     ]
         headers = [ 'FirstName', 'LastName','Gender' ,'Department', 'Email','Birthday', 'Delete']
         self.table = QTableWidget(len(self.listUsers),len(headers)) 
         self.table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers) # Don't edit data in table
@@ -39,7 +36,7 @@ class TableUi(QWidget):
         # Connect the vertical header's sectionClicked signal to the slot
         self.table.verticalHeader().sectionClicked.connect(self.selectRow)
 
-
+        self.iconDeleteDict = {}
 
         
         # Set Header Table
@@ -56,6 +53,7 @@ class TableUi(QWidget):
                 user['Email'],
                 user['BirthDate']
                 ]
+            UserId = user['UserId']
             for column_index, data in enumerate(row_data):
                 item = QTableWidgetItem(str(data))
                 item.setTextAlignment(Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
@@ -63,15 +61,21 @@ class TableUi(QWidget):
 
                 # add delete icon
                 # Icon delete
-                iconDelete = QLabel()
-                iconDelete.setPixmap(QPixmap('trash.png').scaled(20, 20, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
-                iconDelete.setAlignment(Qt.AlignmentFlag.AlignCenter)
-                iconDelete.setStyleSheet("""
+                self.iconDelete = QLabel()
+                self.iconDelete.setPixmap(QPixmap('trash.png').scaled(20, 20, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
+                self.iconDelete.setAlignment(Qt.AlignmentFlag.AlignCenter)
+                self.iconDelete.setStyleSheet("""
                     QLabel {
                         background-color: transparent; /* Background color of the icon */
                     }
                 """)
-                self.table.setCellWidget(row_index,len(self.listUsers[0])-1,iconDelete)
+                # self.iconDelete.mousePressEvent = self.deleteRow
+                
+                self.table.setCellWidget(row_index,len(self.listUsers[0])-1,self.iconDelete)
+
+                self.iconDeleteDict[UserId] = self.iconDelete
+           
+
 
 
         self.table.setStyleSheet("""
@@ -109,21 +113,14 @@ class TableUi(QWidget):
     def getRowData(self):
         return self.rowData
 
-    def getTable(self):
-        return self.table
-    
 
-    def showdata(self):
-        return self.db.getAllUser()
+    
 
 
     
-    # def updateTable(self, users):
-    #     self.setRowCount(len(users))
-    #     for row_index, user in enumerate(users):
-    #         self.setItem(row_index, 0, QTableWidgetItem(user['FirstName']))
-    #         self.setItem(row_index, 1, QTableWidgetItem(user['LastName']))
-    #         self.setItem(row_index, 2, QTableWidgetItem(user['Gender']))
-    #         self.setItem(row_index, 3, QTableWidgetItem(user['Department']))
-    #         self.setItem(row_index, 4, QTableWidgetItem(user['Email']))
-    #         self.setItem(row_index, 5, QTableWidgetItem(user['BirthDate']))
+    # def deleteRow(self,event: QMouseEvent):
+    #     if event.button() == Qt.MouseButton.LeftButton:
+    #         self.db.deleteUser(self.iconDelete.property('UserId'))
+    #         print('deleteClick')
+
+

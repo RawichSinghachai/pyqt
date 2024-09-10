@@ -75,9 +75,11 @@ class CreateAccountPage(QWidget):
         self.db = Database()
 
     # event -------------------------------------------------------------------------------------
-        self.email = ''
-        self.username = ''
-        self.password = ''
+        self.adminRegister = {
+            'email' : '',
+            'username' : '',
+            'password' : ''
+        }
 
     # get email
     def onClickToLoginPage(self,event: QMouseEvent):
@@ -87,25 +89,25 @@ class CreateAccountPage(QWidget):
     
     def onChangeEmailInput(self, text):
         print(f"Email changed to: {text}")
-        self.email = text
+        self.adminRegister['email'] = text
 
     # get username
     def onChangeUserInput(self, text):
         print(f"Username changed to: {text}")
-        self.username = text
+        self.adminRegister['username'] = text
 
     # get password
     def onChangePasswordInput(self, text):
         print(f"Password changed to: {text}")
-        self.password = text
+        self.adminRegister['password'] = text
 
     # Submit Register
     def submitRegister(self):
         # write register in Sqlite
-        resigterStatus = self.db.register(username=self.username,email=self.email,password=self.password)
+        resigterStatus = self.db.register(self.adminRegister)
         if resigterStatus:
             showMessageBox(title='Register',topic='Register Success') # Message Box
-        print(f"Email  : {self.email}   username : {self.username} password : {self.password}")
+        print(f"Email  : {self.adminRegister['email']}   username : {self.adminRegister['username']} password : {self.adminRegister['password']}")
 
         
 

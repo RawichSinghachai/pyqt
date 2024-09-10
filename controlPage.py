@@ -52,8 +52,6 @@ class ControlPage(QWidget):
 
         #  SeachBar 
         self.searchBar = SeachBar()
-        self.searchBar.setPlaceholderText("Search...")
-        self.searchBar.textChanged.connect(self.filterTable)
         vBoxRight.addWidget(self.searchBar)
 
         # Table
@@ -67,7 +65,7 @@ class ControlPage(QWidget):
       
         # Get instance
         self.leftControlUi.getEditBtn().clicked.connect(self.openEditPage)
-        # self.tableUi.getIconDelete().mousePressEvent = self.deleteRow
+        self.searchBar.searchInput.textChanged.connect(self.filterTable)
 
 
 
@@ -107,6 +105,9 @@ class ControlPage(QWidget):
         refreshed_page = ControlPage(self.stackedWidget)
         self.stackedWidget.addWidget(refreshed_page)
         self.stackedWidget.setCurrentWidget(refreshed_page)
+
+    def filterTable(self):
+        pass
 
 
 

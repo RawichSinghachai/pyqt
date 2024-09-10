@@ -79,11 +79,9 @@ class LoginPage(QWidget):
 
 
         # Set LoginPage as the initial widget
-        # self.stackedWidget.setCurrentWidget(self.loginPageWidget)
+        self.stackedWidget.setCurrentWidget(self.loginPageWidget)
         # for test
-        self.stackedWidget.setCurrentWidget(self.controlPage)
-
-
+        # self.stackedWidget.setCurrentWidget(self.controlPage)
 
 
         vBox.addWidget(self.stackedWidget)
@@ -107,8 +105,11 @@ class LoginPage(QWidget):
         self.db = Database()
 
     # Event -------------------------------------------------------------------------------------
-        self.username = ''
-        self.password = ''
+        self.adminLogin = {
+            'username' : '',
+            'password' : ''
+        }
+
 
     def onClickToCreateAccount(self, event: QMouseEvent):
         if event.button() == Qt.MouseButton.LeftButton:
@@ -118,17 +119,17 @@ class LoginPage(QWidget):
     # Get username
     def onUserInputChanged(self, text):
         print(f"Username changed to: {text}")
-        self.username = text
+        self.adminLogin['username'] = text
 
     # Get password
     def onPasswordInputChanged(self, text):
         print(f"Password changed to: {text}")
-        self.password = text
+        self.adminLogin['password'] = text
 
     # Submit Login
     def submitLogin(self):
         # Check Login in SQLite; return True when login is successful
-        loginStatus = self.db.checkLogin(self.username, self.password)
+        loginStatus = self.db.checkLogin(self.adminLogin)
 
         if loginStatus:
             showMessageBox(title='Login', topic='Login Success')  # Message Box
@@ -137,7 +138,7 @@ class LoginPage(QWidget):
         else:
             showMessageBox(title='Login', topic='Login Fail',mode='error')  # Message Box
         
-        print(f"Login username: {self.username} password: {self.password}")
+        print(f"Login username: {self.adminLogin['username']} password: {self.adminLogin['password']}")
 
 
 

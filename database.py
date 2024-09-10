@@ -34,20 +34,20 @@ class Database:
         self.result = admins
         return admins
 
-    def register(self, username, email, password):
-        sql = 'INSERT INTO Admin (Username, Email, Password) VALUES (?, ?, ?);'
+    def register(self, adminRegister):
+        sql = 'INSERT INTO Admin (Email, Username, Password) VALUES (?, ?, ?);'
         query = QSqlQuery(self.db)
         query.prepare(sql)
-        query.addBindValue(username)
-        query.addBindValue(email)
-        query.addBindValue(password)
+        query.addBindValue(adminRegister['email'])
+        query.addBindValue(adminRegister['username'])
+        query.addBindValue(adminRegister['password'])
         result = query.exec()
 
         if not result:
             print("Failed to execute query:", query.lastError().text())
         return result
 
-    def checkLogin(self, login, password):
+    def checkLogin(self, adminLogin):
         sql = '''
             SELECT COUNT(*)
             FROM Admin
@@ -55,9 +55,9 @@ class Database:
         '''
         query = QSqlQuery(self.db)
         query.prepare(sql)
-        query.addBindValue(login)  # This will be used for both username and email
-        query.addBindValue(login)  # This will be used for both username and email
-        query.addBindValue(password)
+        query.addBindValue(adminLogin['username'])  # This will be used for both username and email
+        query.addBindValue(adminLogin['username'])  # This will be used for both username and email
+        query.addBindValue(adminLogin['password'])
         
         if not query.exec():
             print("Failed to execute query:", query.lastError().text())

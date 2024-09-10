@@ -13,10 +13,10 @@ class SeachBar(QWidget):
         self.setLayout(hBoxSeach)
 
         #  Search LineEdit
-        self.searchBar = QLineEdit()
-        self.searchBar.setPlaceholderText("Search...")
-        # self.searchBar.setFixedWidth(480)
-        self.searchBar.setStyleSheet("""
+        self.searchInput = QLineEdit()
+        self.searchInput.setPlaceholderText("Search...")
+        # self.searchInput.setFixedWidth(480)
+        self.searchInput.setStyleSheet("""
             QLineEdit {
                 border-radius: 5px; /* Rounded corners */
                 padding: 10px; /* Padding inside the widget */
@@ -25,7 +25,7 @@ class SeachBar(QWidget):
             }
         """)
 
-        hBoxSeach.addWidget(self.searchBar)
+        hBoxSeach.addWidget(self.searchInput)
 
         # button Search
         searchBtn = QPushButton('Search')

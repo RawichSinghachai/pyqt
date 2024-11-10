@@ -13,6 +13,7 @@ from leftControlUi import LeftControlUi
 from seachBar import SeachBar
 from excelButton import ExcelButton
 from messageBox import showMessageBox,showMessageDeleteDialog  
+from excelRender import excelRender
 
 
 
@@ -22,8 +23,7 @@ class ControlPage(QWidget):
         super().__init__()
 
         self.stackedWidget = stackedWidget
-        # self.editPage = EditPage(self.stackedWidget)
-        # self.stackedWidget.addWidget(self.editPage)
+        self.cam = None
 
         # Database ------------------------------------------------------------------------------------
         self.db = Database()
@@ -57,6 +57,7 @@ class ControlPage(QWidget):
         # Table
         self.tableUi = TableUi(self.listUsers)
         vBoxRight.addWidget(self.tableUi)
+        # print(self.listUsers)
 
 
         # Excel
@@ -64,8 +65,10 @@ class ControlPage(QWidget):
         vBoxRight.addWidget(self.excelButton)
       
         # Get instance
-        self.leftControlUi.getEditBtn().clicked.connect(self.openEditPage)
+        self.leftControlUi.editBtn.clicked.connect(self.openEditPage)
+        self.leftControlUi.startBtn.clicked.connect(self.openTestPage)
         self.searchBar.searchInput.textChanged.connect(self.filterTable)
+        self.excelButton.exportExcelBtn.clicked.connect(self.exportExcelFile)
 
 
 
@@ -75,10 +78,18 @@ class ControlPage(QWidget):
             iconDelete.mousePressEvent = lambda event, uid=user_id: self.deleteRow(event, uid)
 
 
+    # Open Edit Page
     def openEditPage(self):
         edit_page = self.stackedWidget.widget(3)
         edit_page.populateForm(self.tableUi.getRowData())
         self.stackedWidget.setCurrentWidget(self.stackedWidget.widget(3))
+
+    # Open Tesing page
+    def openTestPage(self):
+        test_page = self.stackedWidget.widget(4)
+        test_page.setUser(self.tableUi.getRowData())
+        self.stackedWidget.setCurrentWidget(self.stackedWidget.widget(4))
+
 
     # Delete Account
     def deleteRow(self, event: QMouseEvent, user_id):
@@ -108,6 +119,11 @@ class ControlPage(QWidget):
 
     def filterTable(self):
         pass
+
+    def exportExcelFile(self):
+        excelRender(self.listUsers)
+        print('export excel already')
+
 
 
 

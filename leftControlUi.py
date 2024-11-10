@@ -38,8 +38,8 @@ class LeftControlUi(QWidget):
 
 
         # Add User Button
-        addUserBtn = QPushButton('Add User')
-        addUserBtn.setStyleSheet('''
+        self.detailBtn = QPushButton('Detail')
+        self.detailBtn.setStyleSheet('''
             QPushButton {
                 background-color:#000000;
                 color:white;
@@ -51,11 +51,11 @@ class LeftControlUi(QWidget):
                 background-color:#444444                
             }                 
             ''')
-        vBoxLeft.addWidget(addUserBtn) 
+        vBoxLeft.addWidget(self.detailBtn) 
 
         # Testing Button
-        testBtn = QPushButton('Test History') 
-        testBtn.setStyleSheet('''
+        self.testBtn = QPushButton('Test History') 
+        self.testBtn.setStyleSheet('''
             QPushButton {
                 background-color:#000000;
                 color:white;
@@ -67,11 +67,11 @@ class LeftControlUi(QWidget):
                 background-color:#444444                
             }                 
             ''')
-        vBoxLeft.addWidget(testBtn) 
+        vBoxLeft.addWidget(self.testBtn) 
 
         # Start Button
-        startBtn = QPushButton('Start Tetsing') 
-        startBtn.setStyleSheet('''
+        self.startBtn = QPushButton('Start Tetsing') 
+        self.startBtn.setStyleSheet('''
             QPushButton {
                 background-color:#6af21c;
                 color:white;
@@ -83,11 +83,11 @@ class LeftControlUi(QWidget):
                 background-color:#90f259              
             }                 
             ''')
-        vBoxLeft.addWidget(startBtn) 
+        vBoxLeft.addWidget(self.startBtn) 
 
         # Exit Button
-        exitbtn = QPushButton('Exit Program') 
-        exitbtn.setStyleSheet('''
+        self.exitbtn = QPushButton('Exit Program') 
+        self.exitbtn.setStyleSheet('''
             QPushButton {
                 background-color:#ff0000;
                 color:white;
@@ -99,7 +99,7 @@ class LeftControlUi(QWidget):
                 background-color:#fa4343             
             }                 
             ''')
-        vBoxLeft.addWidget(exitbtn) 
+        vBoxLeft.addWidget(self.exitbtn) 
 
         # lable timer
         self.dateLable = QLabel()
@@ -121,5 +121,12 @@ class LeftControlUi(QWidget):
         self.dateLable.setText(formatted_date_time)      
 
 
-    def getEditBtn(self):
-        return self.editBtn
+    # def getEditBtn(self):
+    #     return self.editBtn
+    
+    # def getStartBtn(self):
+    #     return self.startBtn
+    
+    # def getDetailBtn(self):
+    #     return self.detailBtn
+    

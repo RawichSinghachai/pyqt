@@ -31,9 +31,9 @@ class ExcelButton(QWidget):
 
 
         # Export Excel Button
-        exportExcelBtn = QPushButton('Import Excel')
-        exportExcelBtn.setFixedWidth(250)
-        exportExcelBtn.setStyleSheet('''
+        self.exportExcelBtn = QPushButton('Export Excel')
+        self.exportExcelBtn.setFixedWidth(250)
+        self.exportExcelBtn.setStyleSheet('''
             QPushButton {
                 background-color:#0086ff;
                 color:white;
@@ -45,4 +45,4 @@ class ExcelButton(QWidget):
                 background-color:#72b9fa                
             }                 
             ''')
-        hBoxExcel.addWidget(exportExcelBtn)
+        hBoxExcel.addWidget(self.exportExcelBtn)

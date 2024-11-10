@@ -2,8 +2,11 @@ from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import QCoreApplication, Qt , QSize, pyqtSignal
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QVBoxLayout, \
     QHBoxLayout, QGridLayout, QLineEdit, QMessageBox, QGroupBox, QSpacerItem, QStackedWidget
+from PyQt6.QtGui import QIcon
 from PyQt6.QtGui import QMouseEvent
 from PyQt6.QtSql import QSqlDatabase, QSqlQuery
+
+
 
 from formLogin import FormLogin
 from imageTitle import ImageTitle
@@ -13,13 +16,16 @@ from createAccountPage import CreateAccountPage
 from controlPage import ControlPage
 from editPage import EditPage
 from tableUi import TableUi
+from testPage import TestPage
+
 
 
 class LoginPage(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Login")
 
+        self.setWindowTitle("Python")
+        self.setWindowIcon(QIcon("mainWindow.png"))
         self.setFixedSize(QSize(800, 500))
         self.setStyleSheet("background-color: #B4B4B4;")
         
@@ -71,16 +77,20 @@ class LoginPage(QWidget):
         self.controlPage = ControlPage(self.stackedWidget)
         self.stackedWidget.addWidget(self.controlPage)
 
-
         # Edit Page
         self.editPage = EditPage(self.stackedWidget)
         self.stackedWidget.addWidget(self.editPage)
+
+        # Test Page
+        self.testPage = TestPage(self.stackedWidget)
+        self.stackedWidget.addWidget(self.testPage)
 
 
 
         # Set LoginPage as the initial widget
         self.stackedWidget.setCurrentWidget(self.loginPageWidget)
         # for test
+        # self.stackedWidget.setCurrentWidget(self.testPage)
         # self.stackedWidget.setCurrentWidget(self.controlPage)
 
 
@@ -109,6 +119,14 @@ class LoginPage(QWidget):
             'username' : '',
             'password' : ''
         }
+        # print(self.stackedWidget.currentIndex())
+
+    # Keyboard Event 
+    def keyPressEvent(self, event):
+        if self.stackedWidget.currentIndex() == 0:
+            if event.key() == Qt.Key.Key_Enter or event.key() == Qt.Key.Key_Return:
+                print("Enter key pressed")
+                self.submitLogin()
 
 
     def onClickToCreateAccount(self, event: QMouseEvent):

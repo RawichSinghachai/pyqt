@@ -2,7 +2,7 @@ Edit Feature
 - cusor
 - sql (pending)
 - notification state mesage (pending)
-- excel
+- excel (pending)
 - opencv
 - count down timer
 - merge file (success)
@@ -11,6 +11,7 @@ Edit Feature
 - binding data to editPage  (success)
 - edit parameter name (success)
 - CRUD (success)
+- if don't have user_data don't click editbtn and testbtn
 
 edit after
 - add timestamp when create account
